@@ -6,8 +6,17 @@ module Logging
   end
 end
 
+module Notify
+  def make_noise
+    puts "start notify"
+    super
+    puts "end notify"
+  end
+end
+
 class Bird
-  extend Logging
+  prepend Notify
+  prepend Logging
   #def self.new(*arguments, &block)
     #instance = super
     #instance.singleton_class.include(Logging)
@@ -20,15 +29,16 @@ class Bird
 end
 
 class Duck < Bird
-  prepend Logging
+  # prepend Notify
+  # prepend Logging
 
   def make_noise
     puts "Quack,,,Quack"
   end
 end
 
-bird = Bird.new
-bird.singleton_class.include(Logging)
+# bird = Bird.new
+# bird.singleton_class.include(Logging)
 #p bird.make_noise
 
 p Duck.new.make_noise
